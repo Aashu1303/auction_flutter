@@ -536,21 +536,30 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Icon(
-                          Icons.ios_share,
+                          Icons.assignment_ind,
                           color: Color(0xFF57636C),
                           size: 24,
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                          child: Text(
-                            'Invite Friends',
-                            style:
-                                FlutterFlowTheme.of(context).bodyText2.override(
-                                      fontFamily: 'Outfit',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal,
-                                    ),
+                          child: InkWell(
+                            onTap: () async {
+                              GoRouter.of(context).prepareAuthEvent();
+                              await signOut();
+
+                              context.goNamedAuth('Login', mounted);
+                            },
+                            child: Text(
+                              'Sign out ',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText2
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    color: Color(0xFF57636C),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            ),
                           ),
                         ),
                         Expanded(
