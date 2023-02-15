@@ -1,8 +1,6 @@
 import '../auth/auth_util.dart';
-import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
@@ -93,34 +91,16 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           ),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                            child: StreamBuilder<UsersRecord>(
-                              stream: UsersRecord.getDocument(
-                                  currentUserReference!),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: CircularProgressIndicator(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                final imageUsersRecord = snapshot.data!;
-                                return ClipRRect(
-                                  borderRadius: BorderRadius.circular(40),
-                                  child: CachedNetworkImage(
-                                    imageUrl: imageUsersRecord.photoUrl!,
-                                    width: 60,
-                                    height: 60,
-                                    fit: BoxFit.cover,
-                                  ),
-                                );
-                              },
+                            child: AuthUserStreamWidget(
+                              builder: (context) => ClipRRect(
+                                borderRadius: BorderRadius.circular(40),
+                                child: Image.network(
+                                  currentUserPhoto,
+                                  width: 60,
+                                  height: 60,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
                           ),
                         ),

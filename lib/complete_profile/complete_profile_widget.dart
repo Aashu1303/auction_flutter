@@ -307,6 +307,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                         final usersUpdateData = createUsersRecordData(
                           displayName: _model.yourNameController.text,
                           phoneNumber: _model.contactController.text,
+                          photoUrl: _model.uploadedFileUrl,
                         );
                         await buttonUsersRecord.reference
                             .update(usersUpdateData);
