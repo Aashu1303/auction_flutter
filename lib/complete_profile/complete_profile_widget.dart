@@ -1,12 +1,9 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/upload_media.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,9 +28,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
     super.initState();
     _model = createModel(context, () => CompleteProfileModel());
 
-    _model.yourNameController =
-        TextEditingController(text: currentUserDisplayName);
-    _model.contactController = TextEditingController(text: currentPhoneNumber);
+    _model.yourNameController = TextEditingController();
+    _model.contactController = TextEditingController();
   }
 
   @override
@@ -109,190 +105,100 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFDBE2E7),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                      child: AuthUserStreamWidget(
-                        builder: (context) => InkWell(
-                          onTap: () async {
-                            final selectedMedia =
-                                await selectMediaWithSourceBottomSheet(
-                              context: context,
-                              allowPhoto: true,
-                            );
-                            if (selectedMedia != null &&
-                                selectedMedia.every((m) => validateFileFormat(
-                                    m.storagePath, context))) {
-                              setState(() => _model.isMediaUploading = true);
-                              var selectedUploadedFiles = <FFUploadedFile>[];
-                              var downloadUrls = <String>[];
-                              try {
-                                selectedUploadedFiles = selectedMedia
-                                    .map((m) => FFUploadedFile(
-                                          name: m.storagePath.split('/').last,
-                                          bytes: m.bytes,
-                                          height: m.dimensions?.height,
-                                          width: m.dimensions?.width,
-                                        ))
-                                    .toList();
-
-                                downloadUrls = (await Future.wait(
-                                  selectedMedia.map(
-                                    (m) async => await uploadData(
-                                        m.storagePath, m.bytes),
-                                  ),
-                                ))
-                                    .where((u) => u != null)
-                                    .map((u) => u!)
-                                    .toList();
-                              } finally {
-                                _model.isMediaUploading = false;
-                              }
-                              if (selectedUploadedFiles.length ==
-                                      selectedMedia.length &&
-                                  downloadUrls.length == selectedMedia.length) {
-                                setState(() {
-                                  _model.uploadedLocalFile =
-                                      selectedUploadedFiles.first;
-                                  _model.uploadedFileUrl = downloadUrls.first;
-                                });
-                              } else {
-                                setState(() {});
-                                return;
-                              }
-                            }
-                          },
-                          child: Container(
-                            width: 90,
-                            height: 90,
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                            ),
-                            child: CachedNetworkImage(
-                              imageUrl: currentUserPhoto,
-                              fit: BoxFit.fitWidth,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 40, 20, 16),
-              child: AuthUserStreamWidget(
-                builder: (context) => TextFormField(
-                  controller: _model.yourNameController,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                    labelStyle: FlutterFlowTheme.of(context).bodyText2,
-                    hintText: 'Enter your name',
-                    hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
+              child: TextFormField(
+                controller: _model.yourNameController,
+                obscureText: false,
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                  labelStyle: FlutterFlowTheme.of(context).bodyText2,
+                  hintText: 'Enter your name',
+                  hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      width: 2,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    filled: true,
-                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                    contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyText1,
-                  maxLines: null,
-                  validator:
-                      _model.yourNameControllerValidator.asValidator(context),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                  contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
+                style: FlutterFlowTheme.of(context).bodyText1,
+                maxLines: null,
+                validator:
+                    _model.yourNameControllerValidator.asValidator(context),
               ),
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 16),
-              child: AuthUserStreamWidget(
-                builder: (context) => TextFormField(
-                  controller: _model.contactController,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Contact Number',
-                    labelStyle: FlutterFlowTheme.of(context).bodyText2,
-                    hintText: 'Enter Your Contact Number',
-                    hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
+              child: TextFormField(
+                controller: _model.contactController,
+                obscureText: false,
+                decoration: InputDecoration(
+                  labelText: 'Contact Number',
+                  labelStyle: FlutterFlowTheme.of(context).bodyText2,
+                  hintText: 'Enter Your Contact Number',
+                  hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      width: 2,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    filled: true,
-                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                    contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyText1,
-                  maxLines: null,
-                  keyboardType: TextInputType.phone,
-                  validator:
-                      _model.contactControllerValidator.asValidator(context),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                  contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                 ),
+                style: FlutterFlowTheme.of(context).bodyText1,
+                maxLines: null,
+                keyboardType: TextInputType.phone,
+                validator:
+                    _model.contactControllerValidator.asValidator(context),
               ),
             ),
             Align(
@@ -320,7 +226,6 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                         final usersUpdateData = createUsersRecordData(
                           displayName: _model.yourNameController.text,
                           phoneNumber: _model.contactController.text,
-                          photoUrl: _model.uploadedFileUrl,
                         );
                         await buttonUsersRecord.reference
                             .update(usersUpdateData);
