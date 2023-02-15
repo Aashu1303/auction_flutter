@@ -31,8 +31,9 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
     super.initState();
     _model = createModel(context, () => CompleteProfileModel());
 
-    _model.yourNameController = TextEditingController();
-    _model.contactController = TextEditingController();
+    _model.yourNameController =
+        TextEditingController(text: currentUserDisplayName);
+    _model.contactController = TextEditingController(text: currentPhoneNumber);
   }
 
   @override
@@ -193,98 +194,105 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 40, 20, 16),
-              child: TextFormField(
-                controller: _model.yourNameController,
-                obscureText: false,
-                decoration: InputDecoration(
-                  labelText: 'Name',
-                  labelStyle: FlutterFlowTheme.of(context).bodyText2,
-                  hintText: 'Enter your name',
-                  hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      width: 2,
+              child: AuthUserStreamWidget(
+                builder: (context) => TextFormField(
+                  controller: _model.yourNameController,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    labelText: 'Name',
+                    labelStyle: FlutterFlowTheme.of(context).bodyText2,
+                    hintText: 'Enter your name',
+                    hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      width: 2,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 2,
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 2,
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    borderRadius: BorderRadius.circular(8),
+                    filled: true,
+                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                    contentPadding:
+                        EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                   ),
-                  filled: true,
-                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                  contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                  style: FlutterFlowTheme.of(context).bodyText1,
+                  maxLines: null,
+                  validator:
+                      _model.yourNameControllerValidator.asValidator(context),
                 ),
-                style: FlutterFlowTheme.of(context).bodyText1,
-                maxLines: null,
-                validator:
-                    _model.yourNameControllerValidator.asValidator(context),
               ),
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 16),
-              child: TextFormField(
-                controller: _model.contactController,
-                obscureText: false,
-                decoration: InputDecoration(
-                  labelText: 'Contact Number',
-                  labelStyle: FlutterFlowTheme.of(context).bodyText2,
-                  hintText: 'Enter Your Contact Number',
-                  hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      width: 2,
+              child: AuthUserStreamWidget(
+                builder: (context) => TextFormField(
+                  controller: _model.contactController,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    labelText: 'Contact Number',
+                    labelStyle: FlutterFlowTheme.of(context).bodyText2,
+                    hintText: 'Enter Your Contact Number',
+                    hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      width: 2,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 2,
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 2,
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    borderRadius: BorderRadius.circular(8),
+                    filled: true,
+                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                    contentPadding:
+                        EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
                   ),
-                  filled: true,
-                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                  contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                  style: FlutterFlowTheme.of(context).bodyText1,
+                  maxLines: null,
+                  keyboardType: TextInputType.phone,
+                  validator:
+                      _model.contactControllerValidator.asValidator(context),
                 ),
-                style: FlutterFlowTheme.of(context).bodyText1,
-                maxLines: null,
-                validator:
-                    _model.contactControllerValidator.asValidator(context),
               ),
             ),
             Align(
