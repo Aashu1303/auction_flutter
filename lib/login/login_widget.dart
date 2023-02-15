@@ -549,6 +549,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         return;
                                       }
 
+                                      context.pushNamedAuth(
+                                          'completeProfile', mounted);
+
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
@@ -562,9 +565,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           backgroundColor: Color(0x00000000),
                                         ),
                                       );
-
-                                      context.pushNamedAuth(
-                                          'completeProfile', mounted);
                                     },
                                     text: 'Create Account',
                                     options: FFButtonOptions(
