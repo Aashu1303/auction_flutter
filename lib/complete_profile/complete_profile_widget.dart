@@ -229,6 +229,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                         );
                         await buttonUsersRecord.reference
                             .update(usersUpdateData);
+
+                        context.pushNamed('onboarding');
                       },
                       text: 'Save Changes',
                       options: FFButtonOptions(
