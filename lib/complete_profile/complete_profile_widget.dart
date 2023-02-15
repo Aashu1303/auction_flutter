@@ -1,9 +1,11 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/upload_media.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -104,6 +106,85 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+              child: InkWell(
+                onTap: () async {
+                  final selectedMedia = await selectMediaWithSourceBottomSheet(
+                    context: context,
+                    allowPhoto: true,
+                    backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+                    textColor: FlutterFlowTheme.of(context).primaryBtnText,
+                    pickerFontFamily: 'Roboto',
+                  );
+                  if (selectedMedia != null &&
+                      selectedMedia.every(
+                          (m) => validateFileFormat(m.storagePath, context))) {
+                    setState(() => _model.isMediaUploading = true);
+                    var selectedUploadedFiles = <FFUploadedFile>[];
+                    var downloadUrls = <String>[];
+                    try {
+                      selectedUploadedFiles = selectedMedia
+                          .map((m) => FFUploadedFile(
+                                name: m.storagePath.split('/').last,
+                                bytes: m.bytes,
+                                height: m.dimensions?.height,
+                                width: m.dimensions?.width,
+                              ))
+                          .toList();
+
+                      downloadUrls = (await Future.wait(
+                        selectedMedia.map(
+                          (m) async => await uploadData(m.storagePath, m.bytes),
+                        ),
+                      ))
+                          .where((u) => u != null)
+                          .map((u) => u!)
+                          .toList();
+                    } finally {
+                      _model.isMediaUploading = false;
+                    }
+                    if (selectedUploadedFiles.length == selectedMedia.length &&
+                        downloadUrls.length == selectedMedia.length) {
+                      setState(() {
+                        _model.uploadedLocalFile = selectedUploadedFiles.first;
+                        _model.uploadedFileUrl = downloadUrls.first;
+                      });
+                    } else {
+                      setState(() {});
+                      return;
+                    }
+                  }
+                },
+                child: Container(
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 6,
+                        color: Color(0x3A000000),
+                        offset: Offset(0, 2),
+                      )
+                    ],
+                    shape: BoxShape.circle,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(120),
+                      child: Image.network(
+                        _model.uploadedFileUrl,
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 40, 20, 16),
               child: TextFormField(
