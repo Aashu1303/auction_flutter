@@ -25,11 +25,11 @@ class _LoginWidgetState extends State<LoginWidget> {
     super.initState();
     _model = createModel(context, () => LoginModel());
 
-    _model.emailAddressController = TextEditingController();
-    _model.passwordController = TextEditingController();
-    _model.emailAddressCreateController = TextEditingController();
-    _model.passwordCreateController = TextEditingController();
-    _model.confirmPasswordController = TextEditingController();
+    _model.emailAddressController ??= TextEditingController();
+    _model.passwordController ??= TextEditingController();
+    _model.emailAddressCreateController ??= TextEditingController();
+    _model.passwordCreateController ??= TextEditingController();
+    _model.confirmPasswordController ??= TextEditingController();
   }
 
   @override
@@ -118,7 +118,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: Colors.white,
+                                          color: Color(0x00000000),
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
@@ -177,7 +177,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: Colors.white,
+                                          color: Color(0x00000000),
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
@@ -300,7 +300,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: Colors.white,
+                                          color: Color(0x00000000),
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
@@ -360,7 +360,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: Colors.white,
+                                          color: Color(0x00000000),
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
@@ -437,7 +437,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: Colors.white,
+                                          color: Color(0x00000000),
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),

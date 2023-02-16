@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image/image.dart' show decodeImage;
 import 'package:mime_type/mime_type.dart';
 import 'package:video_player/video_player.dart';
 
@@ -256,10 +255,10 @@ Future<SelectedMedia?> selectFile({
 }
 
 Future<MediaDimensions> _getImageDimensions(Uint8List mediaBytes) async {
-  final image = decodeImage(mediaBytes);
+  final image = await decodeImageFromList(mediaBytes);
   return MediaDimensions(
-    width: image?.width.toDouble(),
-    height: image?.height.toDouble(),
+    width: image.width.toDouble(),
+    height: image.height.toDouble(),
   );
 }
 

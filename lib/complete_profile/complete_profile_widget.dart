@@ -30,8 +30,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
     super.initState();
     _model = createModel(context, () => CompleteProfileModel());
 
-    _model.yourNameController = TextEditingController();
-    _model.contactController = TextEditingController();
+    _model.yourNameController ??= TextEditingController();
+    _model.contactController ??= TextEditingController();
   }
 
   @override
@@ -204,7 +204,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      color: Color(0x00000000),
                       width: 2,
                     ),
                     borderRadius: BorderRadius.circular(8),
@@ -252,7 +252,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      color: Color(0x00000000),
                       width: 2,
                     ),
                     borderRadius: BorderRadius.circular(8),
