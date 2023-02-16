@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,8 @@ class AddProductModel extends FlutterFlowModel {
   // State field(s) for shortBio widget.
   TextEditingController? shortBioController;
   String? Function(BuildContext, String?)? shortBioControllerValidator;
+  DateTime? datePicked1;
+  DateTime? datePicked2;
   // State field(s) for maxBid widget.
   TextEditingController? maxBidController;
   String? Function(BuildContext, String?)? maxBidControllerValidator;

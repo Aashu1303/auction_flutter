@@ -1,4 +1,4 @@
-# auctionware
+# AuctionWare
 
 A new Flutter project.
 

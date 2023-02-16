@@ -1,23 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rxdart/rxdart.dart';
 
-class AuctionwareFirebaseUser {
-  AuctionwareFirebaseUser(this.user);
+class AuctionWareFirebaseUser {
+  AuctionWareFirebaseUser(this.user);
   User? user;
   bool get loggedIn => user != null;
 }
 
-AuctionwareFirebaseUser? currentUser;
+AuctionWareFirebaseUser? currentUser;
 bool get loggedIn => currentUser?.loggedIn ?? false;
-Stream<AuctionwareFirebaseUser> auctionwareFirebaseUserStream() =>
+Stream<AuctionWareFirebaseUser> auctionWareFirebaseUserStream() =>
     FirebaseAuth.instance
         .authStateChanges()
         .debounce((user) => user == null && !loggedIn
             ? TimerStream(true, const Duration(seconds: 1))
             : Stream.value(user))
-        .map<AuctionwareFirebaseUser>(
+        .map<AuctionWareFirebaseUser>(
       (user) {
-        currentUser = AuctionwareFirebaseUser(user);
+        currentUser = AuctionWareFirebaseUser(user);
         return currentUser!;
       },
     );

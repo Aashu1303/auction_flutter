@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -100,7 +101,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
                   child: StreamBuilder<List<ListingsRecord>>(
                     stream: queryListingsRecord(
                       singleRecord: true,
@@ -178,17 +179,16 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                           }
                         },
                         child: Image.network(
-                          imageListingsRecord!.image!,
-                          width: 200,
-                          height: 200,
+                          imageListingsRecord!.photoUrl!,
+                          width: 100,
+                          height: 100,
                           fit: BoxFit.cover,
                         ),
                       );
                     },
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
+                Expanded(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -290,6 +290,114 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                           keyboardType: TextInputType.multiline,
                           validator: _model.shortBioControllerValidator
                               .asValidator(context),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 10, 16, 0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  final _datePicked1Date = await showDatePicker(
+                                    context: context,
+                                    initialDate: getCurrentTimestamp,
+                                    firstDate: getCurrentTimestamp,
+                                    lastDate: DateTime(2050),
+                                  );
+
+                                  TimeOfDay? _datePicked1Time;
+                                  if (_datePicked1Date != null) {
+                                    _datePicked1Time = await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.fromDateTime(
+                                          getCurrentTimestamp),
+                                    );
+                                  }
+
+                                  if (_datePicked1Date != null &&
+                                      _datePicked1Time != null) {
+                                    setState(() {
+                                      _model.datePicked1 = DateTime(
+                                        _datePicked1Date.year,
+                                        _datePicked1Date.month,
+                                        _datePicked1Date.day,
+                                        _datePicked1Time!.hour,
+                                        _datePicked1Time.minute,
+                                      );
+                                    });
+                                  }
+                                },
+                                text: 'Select Bid starting Timing',
+                                options: FFButtonOptions(
+                                  width: 130,
+                                  height: 40,
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBtnText,
+                                  textStyle:
+                                      FlutterFlowTheme.of(context).bodyText1,
+                                  elevation: 5,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
+                            FFButtonWidget(
+                              onPressed: () async {
+                                final _datePicked2Date = await showDatePicker(
+                                  context: context,
+                                  initialDate: getCurrentTimestamp,
+                                  firstDate: getCurrentTimestamp,
+                                  lastDate: DateTime(2050),
+                                );
+
+                                TimeOfDay? _datePicked2Time;
+                                if (_datePicked2Date != null) {
+                                  _datePicked2Time = await showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.fromDateTime(
+                                        getCurrentTimestamp),
+                                  );
+                                }
+
+                                if (_datePicked2Date != null &&
+                                    _datePicked2Time != null) {
+                                  setState(() {
+                                    _model.datePicked2 = DateTime(
+                                      _datePicked2Date.year,
+                                      _datePicked2Date.month,
+                                      _datePicked2Date.day,
+                                      _datePicked2Time!.hour,
+                                      _datePicked2Time.minute,
+                                    );
+                                  });
+                                }
+                              },
+                              text: 'Select Ending Timing',
+                              options: FFButtonOptions(
+                                width: 130,
+                                height: 40,
+                                color:
+                                    FlutterFlowTheme.of(context).primaryBtnText,
+                                textStyle:
+                                    FlutterFlowTheme.of(context).bodyText1,
+                                elevation: 5,
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Padding(
@@ -397,6 +505,8 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                         minBid: double.tryParse(_model.minBidController.text),
                         maxBid: double.tryParse(_model.maxBidController.text),
                         image: _model.uploadedFileUrl,
+                        startDate: _model.datePicked1,
+                        endDate: _model.datePicked2,
                       );
                       await ListingsRecord.collection
                           .doc()

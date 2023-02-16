@@ -125,7 +125,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
                             child: InkWell(
                               onTap: () async {
-                                context.pushNamed(
+                                context.goNamed(
                                   'DetailPage',
                                   queryParams: {
                                     'listingRef': serializeParam(
@@ -165,7 +165,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(12),
                                         child: Image.network(
-                                          'https://static.nike.com/a/images/f_auto,b_rgb:f5f5f5,w_880/e5e376f2-7b53-49fc-9720-0e1d69ff0fb9/zion-1-basketball-shoes-bJ0hLJ.png',
+                                          listViewListingsRecord.image!,
                                           width: 120,
                                           height: 100,
                                           fit: BoxFit.cover,
