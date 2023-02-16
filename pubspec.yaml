@@ -25,7 +25,6 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  audio_session: 0.1.10
   auto_size_text: 3.0.0
   built_collection: 5.1.1
   built_value: 8.4.0
@@ -61,9 +60,6 @@ dependencies:
   intl: 0.17.0
   json_path: 0.4.1
   json_serializable: 6.3.1
-  just_audio: 0.9.28
-  just_audio_platform_interface: 4.2.0
-  just_audio_web: 0.4.7
   mime_type: 1.0.0
   page_transition: 2.0.4
   plugin_platform_interface: 2.1.3

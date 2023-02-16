@@ -121,6 +121,13 @@ class _$ListingsRecordSerializer
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
+    value = object.aboutProduct;
+    if (value != null) {
+      result
+        ..add('aboutProduct')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -204,6 +211,10 @@ class _$ListingsRecordSerializer
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
+        case 'aboutProduct':
+          result.aboutProduct = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -247,6 +258,8 @@ class _$ListingsRecord extends ListingsRecord {
   @override
   final DocumentReference<Object?>? uid;
   @override
+  final String? aboutProduct;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$ListingsRecord([void Function(ListingsRecordBuilder)? updates]) =>
@@ -267,6 +280,7 @@ class _$ListingsRecord extends ListingsRecord {
       this.createdTime,
       this.phoneNumber,
       this.uid,
+      this.aboutProduct,
       this.ffRef})
       : super._();
 
@@ -296,6 +310,7 @@ class _$ListingsRecord extends ListingsRecord {
         createdTime == other.createdTime &&
         phoneNumber == other.phoneNumber &&
         uid == other.uid &&
+        aboutProduct == other.aboutProduct &&
         ffRef == other.ffRef;
   }
 
@@ -315,21 +330,23 @@ class _$ListingsRecord extends ListingsRecord {
                                                 $jc(
                                                     $jc(
                                                         $jc(
-                                                            $jc(0,
-                                                                name.hashCode),
-                                                            image.hashCode),
-                                                        startDate.hashCode),
-                                                    endDate.hashCode),
-                                                currentBid.hashCode),
-                                            minBid.hashCode),
-                                        maxBid.hashCode),
-                                    maxBidUID.hashCode),
-                                email.hashCode),
-                            displayName.hashCode),
-                        photoUrl.hashCode),
-                    createdTime.hashCode),
-                phoneNumber.hashCode),
-            uid.hashCode),
+                                                            $jc(
+                                                                $jc(0,
+                                                                    name.hashCode),
+                                                                image.hashCode),
+                                                            startDate.hashCode),
+                                                        endDate.hashCode),
+                                                    currentBid.hashCode),
+                                                minBid.hashCode),
+                                            maxBid.hashCode),
+                                        maxBidUID.hashCode),
+                                    email.hashCode),
+                                displayName.hashCode),
+                            photoUrl.hashCode),
+                        createdTime.hashCode),
+                    phoneNumber.hashCode),
+                uid.hashCode),
+            aboutProduct.hashCode),
         ffRef.hashCode));
   }
 
@@ -350,6 +367,7 @@ class _$ListingsRecord extends ListingsRecord {
           ..add('createdTime', createdTime)
           ..add('phoneNumber', phoneNumber)
           ..add('uid', uid)
+          ..add('aboutProduct', aboutProduct)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -416,6 +434,10 @@ class ListingsRecordBuilder
   DocumentReference<Object?>? get uid => _$this._uid;
   set uid(DocumentReference<Object?>? uid) => _$this._uid = uid;
 
+  String? _aboutProduct;
+  String? get aboutProduct => _$this._aboutProduct;
+  set aboutProduct(String? aboutProduct) => _$this._aboutProduct = aboutProduct;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -441,6 +463,7 @@ class ListingsRecordBuilder
       _createdTime = $v.createdTime;
       _phoneNumber = $v.phoneNumber;
       _uid = $v.uid;
+      _aboutProduct = $v.aboutProduct;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -478,6 +501,7 @@ class ListingsRecordBuilder
             createdTime: createdTime,
             phoneNumber: phoneNumber,
             uid: uid,
+            aboutProduct: aboutProduct,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

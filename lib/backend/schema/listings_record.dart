@@ -43,6 +43,8 @@ abstract class ListingsRecord
 
   DocumentReference? get uid;
 
+  String? get aboutProduct;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -56,7 +58,8 @@ abstract class ListingsRecord
     ..email = ''
     ..displayName = ''
     ..photoUrl = ''
-    ..phoneNumber = '';
+    ..phoneNumber = ''
+    ..aboutProduct = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('listings');
@@ -94,6 +97,7 @@ Map<String, dynamic> createListingsRecordData({
   DateTime? createdTime,
   String? phoneNumber,
   DocumentReference? uid,
+  String? aboutProduct,
 }) {
   final firestoreData = serializers.toFirestore(
     ListingsRecord.serializer,
@@ -112,7 +116,8 @@ Map<String, dynamic> createListingsRecordData({
         ..photoUrl = photoUrl
         ..createdTime = createdTime
         ..phoneNumber = phoneNumber
-        ..uid = uid,
+        ..uid = uid
+        ..aboutProduct = aboutProduct,
     ),
   );
 
