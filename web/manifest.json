@@ -1,6 +1,6 @@
 {
-    "name": "AuctionWare",
-    "short_name": "AuctionWare",
+    "name": "auctionware",
+    "short_name": "auctionware",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

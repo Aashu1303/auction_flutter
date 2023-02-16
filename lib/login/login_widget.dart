@@ -268,34 +268,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 50, 0, 0),
-                                  child: FFButtonWidget(
-                                    onPressed: () {
-                                      print(
-                                          'Button-ForgotPassword pressed ...');
-                                    },
-                                    text: 'Forgot Password?',
-                                    options: FFButtonOptions(
-                                      width: 170,
-                                      height: 40,
-                                      color: FlutterFlowTheme.of(context)
-                                          .tertiaryColor,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .subtitle2
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: Colors.white,
-                                          ),
-                                      elevation: 0,
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1,
-                                      ),
-                                    ),
-                                  ),
-                                ),
                               ],
                             ),
                           ),
