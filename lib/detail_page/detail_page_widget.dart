@@ -123,15 +123,37 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                        child: Image.network(
-                          valueOrDefault<String>(
-                            detailPageListingsRecord.image,
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbPYg7FzxKVjNrmcNq8nJjKCw4HazEBapcbQ&usqp=CAU',
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                        child: Material(
+                          color: Colors.transparent,
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          width: MediaQuery.of(context).size.width,
-                          height: 230,
-                          fit: BoxFit.cover,
+                          child: Container(
+                            width: 100,
+                            height: 230,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context).black600,
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(0),
+                              child: Image.network(
+                                valueOrDefault<String>(
+                                  detailPageListingsRecord.image,
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbPYg7FzxKVjNrmcNq8nJjKCw4HazEBapcbQ&usqp=CAU',
+                                ),
+                                width: MediaQuery.of(context).size.width,
+                                height: 230,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -189,7 +211,7 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                           child: Text(
-                            'The best of all 3 worlds, Row & Flow offers high intensity rowing and strength intervals followed by athletic based yoga sure to enhance flexible and clear the mind. Yoga mats are provided but bringing your own yoga mat is highly encouraged.',
+                            detailPageListingsRecord.aboutProduct!,
                             style:
                                 FlutterFlowTheme.of(context).bodyText2.override(
                                       fontFamily: 'Outfit',
@@ -418,7 +440,7 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                               },
                             );
                           },
-                          text: 'Bid\n',
+                          text: 'Bid',
                           options: FFButtonOptions(
                             width: 139,
                             height: 60,
@@ -427,8 +449,8 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                                 FlutterFlowTheme.of(context).title3.override(
                                       fontFamily: 'Outfit',
                                       color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w600,
                                     ),
                             elevation: 3,
                             borderSide: BorderSide(
