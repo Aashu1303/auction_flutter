@@ -10,25 +10,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'complete_profile_model.dart';
-export 'complete_profile_model.dart';
+import 'edit_profile_model.dart';
+export 'edit_profile_model.dart';
 
-class CompleteProfileWidget extends StatefulWidget {
-  const CompleteProfileWidget({Key? key}) : super(key: key);
+class EditProfileWidget extends StatefulWidget {
+  const EditProfileWidget({Key? key}) : super(key: key);
 
   @override
-  _CompleteProfileWidgetState createState() => _CompleteProfileWidgetState();
+  _EditProfileWidgetState createState() => _EditProfileWidgetState();
 }
 
-class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
-  late CompleteProfileModel _model;
+class _EditProfileWidgetState extends State<EditProfileWidget> {
+  late EditProfileModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => CompleteProfileModel());
+    _model = createModel(context, () => EditProfileModel());
 
     _model.yourNameController ??= TextEditingController();
     _model.contactController ??= TextEditingController();
@@ -86,7 +86,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 30),
                   child: Text(
-                    'Create your Profile',
+                    'Update your Profile',
                     style: FlutterFlowTheme.of(context).title2.override(
                           fontFamily: 'Poppins',
                           color: FlutterFlowTheme.of(context).primaryText,

@@ -63,7 +63,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       Card(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         color: FlutterFlowTheme.of(context).secondaryBackground,
-                        elevation: 0,
+                        elevation: 5,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -73,7 +73,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             builder: (context) => ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               child: Image.network(
-                                currentUserPhoto,
+                                valueOrDefault<String>(
+                                  currentUserPhoto,
+                                  'https://www.pngfind.com/pngs/m/470-4703547_icon-user-icon-hd-png-download.png',
+                                ),
                                 width: 80,
                                 height: 80,
                                 fit: BoxFit.cover,
@@ -134,50 +137,65 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Material(
-                      color: Colors.transparent,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                    InkWell(
+                      onTap: () async {
+                        context.pushNamed(
+                          'editProfile',
+                          extra: <String, dynamic>{
+                            kTransitionInfoKey: TransitionInfo(
+                              hasTransition: true,
+                              transitionType: PageTransitionType.fade,
+                              duration: Duration(milliseconds: 0),
+                            ),
+                          },
+                        );
+                      },
+                      child: Material(
+                        color: Colors.transparent,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
+                        ),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: 60,
+                          decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
-                            width: 0,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              width: 0,
+                            ),
                           ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(16, 0, 4, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Edit Profile',
-                                style: FlutterFlowTheme.of(context).subtitle2,
-                              ),
-                              FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30,
-                                buttonSize: 46,
-                                icon: Icon(
-                                  Icons.chevron_right_rounded,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 20,
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 4, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Edit Profile',
+                                  style: FlutterFlowTheme.of(context).subtitle2,
                                 ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
-                                },
-                              ),
-                            ],
+                                FlutterFlowIconButton(
+                                  borderColor: Colors.transparent,
+                                  borderRadius: 30,
+                                  buttonSize: 46,
+                                  icon: Icon(
+                                    Icons.chevron_right_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 20,
+                                  ),
+                                  onPressed: () {
+                                    print('IconButton pressed ...');
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -338,7 +356,12 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             children: [
                               Text(
                                 'Terms of Services',
-                                style: FlutterFlowTheme.of(context).bodyText1,
+                                style: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      fontSize: 16,
+                                    ),
                               ),
                               FlutterFlowIconButton(
                                 borderColor: Colors.transparent,

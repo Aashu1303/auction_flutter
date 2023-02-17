@@ -108,17 +108,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
+              name: 'AddProduct',
+              path: 'addProduct',
+              builder: (context, params) => AddProductWidget(),
+            ),
+            FFRoute(
+              name: 'editProfile',
+              path: 'editProfile',
+              builder: (context, params) => EditProfileWidget(),
+            ),
+            FFRoute(
               name: 'Profile',
               path: 'profile',
               requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'Profile')
                   : ProfileWidget(),
-            ),
-            FFRoute(
-              name: 'AddProduct',
-              path: 'addProduct',
-              builder: (context, params) => AddProductWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

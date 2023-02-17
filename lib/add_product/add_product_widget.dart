@@ -101,91 +101,118 @@ class _AddProductWidgetState extends State<AddProductWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
-                  child: StreamBuilder<List<ListingsRecord>>(
-                    stream: queryListingsRecord(
-                      singleRecord: true,
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+                  child: Material(
+                    color: Colors.transparent,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: CircularProgressIndicator(
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                            ),
-                          ),
-                        );
-                      }
-                      List<ListingsRecord> imageListingsRecordList =
-                          snapshot.data!;
-                      // Return an empty Container when the item does not exist.
-                      if (snapshot.data!.isEmpty) {
-                        return Container();
-                      }
-                      final imageListingsRecord =
-                          imageListingsRecordList.isNotEmpty
-                              ? imageListingsRecordList.first
-                              : null;
-                      return InkWell(
-                        onTap: () async {
-                          final selectedMedia =
-                              await selectMediaWithSourceBottomSheet(
-                            context: context,
-                            allowPhoto: true,
-                          );
-                          if (selectedMedia != null &&
-                              selectedMedia.every((m) =>
-                                  validateFileFormat(m.storagePath, context))) {
-                            setState(() => _model.isMediaUploading = true);
-                            var selectedUploadedFiles = <FFUploadedFile>[];
-                            var downloadUrls = <String>[];
-                            try {
-                              selectedUploadedFiles = selectedMedia
-                                  .map((m) => FFUploadedFile(
-                                        name: m.storagePath.split('/').last,
-                                        bytes: m.bytes,
-                                        height: m.dimensions?.height,
-                                        width: m.dimensions?.width,
-                                      ))
-                                  .toList();
-
-                              downloadUrls = (await Future.wait(
-                                selectedMedia.map(
-                                  (m) async =>
-                                      await uploadData(m.storagePath, m.bytes),
-                                ),
-                              ))
-                                  .where((u) => u != null)
-                                  .map((u) => u!)
-                                  .toList();
-                            } finally {
-                              _model.isMediaUploading = false;
-                            }
-                            if (selectedUploadedFiles.length ==
-                                    selectedMedia.length &&
-                                downloadUrls.length == selectedMedia.length) {
-                              setState(() {
-                                _model.uploadedLocalFile =
-                                    selectedUploadedFiles.first;
-                                _model.uploadedFileUrl = downloadUrls.first;
-                              });
-                            } else {
-                              setState(() {});
-                              return;
-                            }
-                          }
-                        },
-                        child: Image.network(
-                          imageListingsRecord!.photoUrl!,
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color:
+                              FlutterFlowTheme.of(context).backgroundComponents,
                         ),
-                      );
-                    },
+                      ),
+                      child: StreamBuilder<List<ListingsRecord>>(
+                        stream: queryListingsRecord(
+                          singleRecord: true,
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: CircularProgressIndicator(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                ),
+                              ),
+                            );
+                          }
+                          List<ListingsRecord> imageListingsRecordList =
+                              snapshot.data!;
+                          // Return an empty Container when the item does not exist.
+                          if (snapshot.data!.isEmpty) {
+                            return Container();
+                          }
+                          final imageListingsRecord =
+                              imageListingsRecordList.isNotEmpty
+                                  ? imageListingsRecordList.first
+                                  : null;
+                          return InkWell(
+                            onTap: () async {
+                              final selectedMedia =
+                                  await selectMediaWithSourceBottomSheet(
+                                context: context,
+                                allowPhoto: true,
+                              );
+                              if (selectedMedia != null &&
+                                  selectedMedia.every((m) => validateFileFormat(
+                                      m.storagePath, context))) {
+                                setState(() => _model.isMediaUploading = true);
+                                var selectedUploadedFiles = <FFUploadedFile>[];
+                                var downloadUrls = <String>[];
+                                try {
+                                  selectedUploadedFiles = selectedMedia
+                                      .map((m) => FFUploadedFile(
+                                            name: m.storagePath.split('/').last,
+                                            bytes: m.bytes,
+                                            height: m.dimensions?.height,
+                                            width: m.dimensions?.width,
+                                          ))
+                                      .toList();
+
+                                  downloadUrls = (await Future.wait(
+                                    selectedMedia.map(
+                                      (m) async => await uploadData(
+                                          m.storagePath, m.bytes),
+                                    ),
+                                  ))
+                                      .where((u) => u != null)
+                                      .map((u) => u!)
+                                      .toList();
+                                } finally {
+                                  _model.isMediaUploading = false;
+                                }
+                                if (selectedUploadedFiles.length ==
+                                        selectedMedia.length &&
+                                    downloadUrls.length ==
+                                        selectedMedia.length) {
+                                  setState(() {
+                                    _model.uploadedLocalFile =
+                                        selectedUploadedFiles.first;
+                                    _model.uploadedFileUrl = downloadUrls.first;
+                                  });
+                                } else {
+                                  setState(() {});
+                                  return;
+                                }
+                              }
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.network(
+                                valueOrDefault<String>(
+                                  imageListingsRecord!.photoUrl,
+                                  'https://icons.veryicon.com/png/o/commerce-shopping/merchant-product-icon-library/add-55.png',
+                                ),
+                                width: 150,
+                                height: 150,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   ),
                 ),
                 Expanded(
