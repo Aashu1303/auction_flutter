@@ -315,7 +315,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         await buttonUsersRecord.reference
                             .update(usersUpdateData);
 
-                        context.pushNamed('onboarding');
+                        context.pushNamed('Profile');
                       },
                       text: 'Save Changes',
                       options: FFButtonOptions(

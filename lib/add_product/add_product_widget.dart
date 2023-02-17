@@ -534,6 +534,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                         image: _model.uploadedFileUrl,
                         startDate: _model.datePicked1,
                         endDate: _model.datePicked2,
+                        maxBidUID: currentUserReference,
                       );
                       await ListingsRecord.collection
                           .doc()
