@@ -379,6 +379,31 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 24),
                         child: FFButtonWidget(
                           onPressed: () async {
+                            final bidsCreateData = createBidsRecordData(
+                              amount: double.tryParse(
+                                  _model.inputBidController.text),
+                              timestamp: getCurrentTimestamp,
+                              uid: currentUserReference,
+                            );
+                            await BidsRecord.createDoc(widget.listingRef!)
+                                .set(bidsCreateData);
+                            if (detailPageListingsRecord.currentBid! <
+                                functions.convertStringToDouble(
+                                    _model.inputBidController.text)) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'PLEASE BID MORE THAN THE MINIMUM BID!',
+                                    style:
+                                        FlutterFlowTheme.of(context).subtitle1,
+                                  ),
+                                  duration: Duration(milliseconds: 4000),
+                                  backgroundColor: Color(0x00000000),
+                                ),
+                              );
+                              context.pop();
+                              return;
+                            }
                             if (detailPageListingsRecord.maxBid! >=
                                 functions.convertStringToDouble(
                                     _model.inputBidController.text)) {
@@ -434,15 +459,6 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                               await widget.listingRef!
                                   .update(listingsUpdateData2);
                             }
-
-                            final bidsCreateData = createBidsRecordData(
-                              amount: double.tryParse(
-                                  _model.inputBidController.text),
-                              timestamp: getCurrentTimestamp,
-                              uid: currentUserReference,
-                            );
-                            await BidsRecord.createDoc(widget.listingRef!)
-                                .set(bidsCreateData);
 
                             context.pushNamed(
                               'DetailPage',
