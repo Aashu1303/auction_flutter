@@ -122,7 +122,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               listViewListingsRecordList[listViewIndex];
                           return Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
+                                EdgeInsetsDirectional.fromSTEB(18, 0, 18, 14),
                             child: InkWell(
                               onTap: () async {
                                 context.goNamed(

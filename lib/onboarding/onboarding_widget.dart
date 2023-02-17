@@ -65,21 +65,29 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 20),
-                                      child: Image.asset(
-                                        'assets/images/ON_explore@3x.png',
-                                        width: 350,
-                                        height: 400,
-                                        fit: BoxFit.fitWidth,
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8, 8, 8, 8),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 20),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: Image.asset(
+                                            'assets/images/aashu1308_a_collage_of_watches__guns__mirrors__almirah_and_fans_984766a2-bfee-4062-a6a8-2c4fb71d6772.png',
+                                            width: 350,
+                                            height: 400,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -88,7 +96,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
-                                        'Explore your City',
+                                        'Bid Your Antiques',
                                         style: FlutterFlowTheme.of(context)
                                             .title1
                                             .override(

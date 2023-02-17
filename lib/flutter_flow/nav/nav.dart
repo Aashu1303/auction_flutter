@@ -83,6 +83,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => LoginWidget(),
             ),
             FFRoute(
+              name: 'onboarding',
+              path: 'onboarding',
+              builder: (context, params) => OnboardingWidget(),
+            ),
+            FFRoute(
               name: 'HomePage',
               path: 'homePage',
               builder: (context, params) => params.isEmpty
@@ -90,22 +95,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : HomePageWidget(),
             ),
             FFRoute(
-              name: 'onboarding',
-              path: 'onboarding',
-              builder: (context, params) => OnboardingWidget(),
-            ),
-            FFRoute(
               name: 'completeProfile',
               path: 'completeProfile',
               builder: (context, params) => CompleteProfileWidget(),
-            ),
-            FFRoute(
-              name: 'DetailPage',
-              path: 'detailPage',
-              builder: (context, params) => DetailPageWidget(
-                listingRef: params.getParam('listingRef',
-                    ParamType.DocumentReference, false, ['listings']),
-              ),
             ),
             FFRoute(
               name: 'AddProduct',
@@ -124,6 +116,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'Profile')
                   : ProfileWidget(),
+            ),
+            FFRoute(
+              name: 'DetailPage',
+              path: 'detailPage',
+              builder: (context, params) => DetailPageWidget(
+                listingRef: params.getParam('listingRef',
+                    ParamType.DocumentReference, false, ['listings']),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

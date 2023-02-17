@@ -283,7 +283,7 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                             autofocus: true,
                             obscureText: false,
                             decoration: InputDecoration(
-                              hintText: '[Some hint text...]',
+                              hintText: 'Enter Bidding Amount :',
                               hintStyle: FlutterFlowTheme.of(context).bodyText2,
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
@@ -355,14 +355,12 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
 
                               final listingsUpdateData1 =
                                   createListingsRecordData(
-                                currentBid: functions.addValue(
-                                    double.parse(
-                                        _model.inputBidController.text),
-                                    50.0),
+                                currentBid: double.tryParse(
+                                    _model.inputBidController.text),
                                 minBid: functions.addValue(
                                     double.parse(
                                         _model.inputBidController.text),
-                                    100.0),
+                                    50.0),
                               );
                               await widget.listingRef!
                                   .update(listingsUpdateData1);
@@ -386,10 +384,9 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                                 maxBid: double.tryParse(
                                     _model.inputBidController.text),
                                 maxBidUID: currentUserReference,
-                                currentBid: functions.addValue(
-                                    detailPageListingsRecord.maxBid!, 50.0),
+                                currentBid: detailPageListingsRecord.maxBid,
                                 minBid: functions.addValue(
-                                    detailPageListingsRecord.maxBid!, 100.0),
+                                    detailPageListingsRecord.maxBid!, 50.0),
                               );
                               await widget.listingRef!
                                   .update(listingsUpdateData2);
