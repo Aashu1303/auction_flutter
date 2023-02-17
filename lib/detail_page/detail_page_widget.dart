@@ -125,7 +125,10 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                         child: Image.network(
-                          detailPageListingsRecord.image!,
+                          valueOrDefault<String>(
+                            detailPageListingsRecord.image,
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbPYg7FzxKVjNrmcNq8nJjKCw4HazEBapcbQ&usqp=CAU',
+                          ),
                           width: MediaQuery.of(context).size.width,
                           height: 230,
                           fit: BoxFit.cover,
