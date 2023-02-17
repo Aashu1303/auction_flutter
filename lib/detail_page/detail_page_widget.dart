@@ -387,7 +387,7 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                             );
                             await BidsRecord.createDoc(widget.listingRef!)
                                 .set(bidsCreateData);
-                            if (detailPageListingsRecord.currentBid! <
+                            if (detailPageListingsRecord.currentBid! >
                                 functions.convertStringToDouble(
                                     _model.inputBidController.text)) {
                               ScaffoldMessenger.of(context).showSnackBar(
