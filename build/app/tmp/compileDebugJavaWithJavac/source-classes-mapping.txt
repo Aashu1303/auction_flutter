@@ -1,0 +1,4 @@
+com/flutterflow/auctionware/BuildConfig.java
+ com.flutterflow.auctionware.BuildConfig
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant

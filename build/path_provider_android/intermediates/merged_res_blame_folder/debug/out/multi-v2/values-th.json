@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\Trials\\project_exhibition\\auction_flutter\\build\\path_provider_android\\intermediates\\res\\merged\\debug\\values-th\\values-th.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\yashd\\.gradle\\caches\\transforms-3\\8b94c68f11045349896f50a21000e344\\transformed\\core-1.6.0\\res\\values-th\\values-th.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\Trials\\project_exhibition\\auction_flutter\\build\\path_provider_android\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-th\\values-th.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\yashd\\.gradle\\caches\\transforms-3\\8b94c68f11045349896f50a21000e344\\transformed\\core-1.6.0\\res\\values-th\\values-th.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

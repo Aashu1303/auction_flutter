@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "D:\\Trials\\project_exhibition\\auction_flutter\\build\\video_player_android\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\notification_bg_low_pressed.9.png",
+        "source": "C:\\Users\\yashd\\.gradle\\caches\\transforms-3\\9c6288c819ff1b581772a6f500ddaef8\\transformed\\core-1.7.0\\res\\drawable-hdpi-v4\\notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "D:\\Trials\\project_exhibition\\auction_flutter\\build\\video_player_android\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\notify_panel_notification_icon_bg.png",
+        "source": "C:\\Users\\yashd\\.gradle\\caches\\transforms-3\\9c6288c819ff1b581772a6f500ddaef8\\transformed\\core-1.7.0\\res\\drawable-hdpi-v4\\notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "D:\\Trials\\project_exhibition\\auction_flutter\\build\\video_player_android\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\notification_bg_low_normal.9.png",
+        "source": "C:\\Users\\yashd\\.gradle\\caches\\transforms-3\\9c6288c819ff1b581772a6f500ddaef8\\transformed\\core-1.7.0\\res\\drawable-hdpi-v4\\notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "D:\\Trials\\project_exhibition\\auction_flutter\\build\\video_player_android\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\notification_bg_normal.9.png",
+        "source": "C:\\Users\\yashd\\.gradle\\caches\\transforms-3\\9c6288c819ff1b581772a6f500ddaef8\\transformed\\core-1.7.0\\res\\drawable-hdpi-v4\\notification_bg_normal.9.png"
+    },
+    {
+        "merged": "D:\\Trials\\project_exhibition\\auction_flutter\\build\\video_player_android\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\notification_bg_normal_pressed.9.png",
+        "source": "C:\\Users\\yashd\\.gradle\\caches\\transforms-3\\9c6288c819ff1b581772a6f500ddaef8\\transformed\\core-1.7.0\\res\\drawable-hdpi-v4\\notification_bg_normal_pressed.9.png"
+    }
+]

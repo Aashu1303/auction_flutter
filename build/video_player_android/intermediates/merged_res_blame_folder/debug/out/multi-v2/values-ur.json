@@ -1,0 +1,68 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\Trials\\project_exhibition\\auction_flutter\\build\\video_player_android\\intermediates\\res\\merged\\debug\\values-ur\\values-ur.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\yashd\\.gradle\\caches\\transforms-3\\e87db580ced04a667c0caa0b9c440751\\transformed\\jetified-exoplayer-core-2.18.0\\res\\values-ur\\values-ur.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,127,194,266,336,413,484,575,660",
+                        "endColumns": "71,66,71,69,76,70,90,84,78",
+                        "endOffsets": "122,189,261,331,408,479,570,655,734"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\yashd\\.gradle\\caches\\transforms-3\\9c6288c819ff1b581772a6f500ddaef8\\transformed\\core-1.7.0\\res\\values-ur\\values-ur.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "11",
+                        "startColumns": "4",
+                        "startOffsets": "739",
+                        "endColumns": "100",
+                        "endOffsets": "835"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\Trials\\project_exhibition\\auction_flutter\\build\\video_player_android\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ur\\values-ur.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\yashd\\.gradle\\caches\\transforms-3\\e87db580ced04a667c0caa0b9c440751\\transformed\\jetified-exoplayer-core-2.18.0\\res\\values-ur\\values-ur.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,127,194,266,336,413,484,575,660",
+                        "endColumns": "71,66,71,69,76,70,90,84,78",
+                        "endOffsets": "122,189,261,331,408,479,570,655,734"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\yashd\\.gradle\\caches\\transforms-3\\9c6288c819ff1b581772a6f500ddaef8\\transformed\\core-1.7.0\\res\\values-ur\\values-ur.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "11",
+                        "startColumns": "4",
+                        "startOffsets": "739",
+                        "endColumns": "100",
+                        "endOffsets": "835"
+                    }
+                }
+            ]
+        }
+    ]
+}
