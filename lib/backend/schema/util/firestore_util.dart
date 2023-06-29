@@ -1,92 +1,23 @@
-import 'package:built_value/standard_json_plugin.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 
-import 'users_record.dart';
-import 'listings_record.dart';
-import 'bids_record.dart';
+import '/backend/schema/util/schema_util.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-import 'index.dart';
+typedef RecordBuilder<T> = T Function(DocumentSnapshot snapshot);
 
-export 'index.dart';
-
-part 'serializers.g.dart';
-
-const kDocumentReferenceField = 'Document__Reference__Field';
-
-@SerializersFor(const [
-  UsersRecord,
-  ListingsRecord,
-  BidsRecord,
-])
-final Serializers serializers = (_$serializers.toBuilder()
-      ..add(DocumentReferenceSerializer())
-      ..add(DateTimeSerializer())
-      ..add(LatLngSerializer())
-      ..add(FirestoreUtilDataSerializer())
-      ..add(ColorSerializer())
-      ..addPlugin(StandardJsonPlugin()))
-    .build();
-
-extension SerializerExtensions on Serializers {
-  Map<String, dynamic> toFirestore<T>(Serializer<T> serializer, T object) =>
-      mapToFirestore(serializeWith(serializer, object) as Map<String, dynamic>);
+abstract class FirestoreRecord {
+  FirestoreRecord(this.reference, this.snapshotData);
+  Map<String, dynamic> snapshotData;
+  DocumentReference reference;
 }
 
-class DocumentReferenceSerializer
-    implements PrimitiveSerializer<DocumentReference> {
-  final bool structured = false;
-  @override
-  final Iterable<Type> types = new BuiltList<Type>([DocumentReference]);
-  @override
-  final String wireName = 'DocumentReference';
+abstract class FFFirebaseStruct extends BaseStruct {
+  FFFirebaseStruct(this.firestoreUtilData);
 
-  @override
-  Object serialize(Serializers serializers, DocumentReference reference,
-      {FullType specifiedType: FullType.unspecified}) {
-    return reference;
-  }
-
-  @override
-  DocumentReference deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType: FullType.unspecified}) =>
-      serialized as DocumentReference;
-}
-
-class DateTimeSerializer implements PrimitiveSerializer<DateTime> {
-  @override
-  final Iterable<Type> types = new BuiltList<Type>([DateTime]);
-  @override
-  final String wireName = 'DateTime';
-
-  @override
-  Object serialize(Serializers serializers, DateTime dateTime,
-      {FullType specifiedType: FullType.unspecified}) {
-    return dateTime;
-  }
-
-  @override
-  DateTime deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType: FullType.unspecified}) =>
-      serialized as DateTime;
-}
-
-class LatLngSerializer implements PrimitiveSerializer<LatLng> {
-  final bool structured = false;
-  @override
-  final Iterable<Type> types = new BuiltList<Type>([LatLng]);
-  @override
-  final String wireName = 'LatLng';
-
-  @override
-  Object serialize(Serializers serializers, LatLng location,
-      {FullType specifiedType: FullType.unspecified}) {
-    return location;
-  }
-
-  @override
-  LatLng deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType: FullType.unspecified}) =>
-      serialized as LatLng;
+  /// Utility class for Firestore updates
+  FirestoreUtilData firestoreUtilData = FirestoreUtilData();
 }
 
 class FirestoreUtilData {
@@ -102,49 +33,6 @@ class FirestoreUtilData {
   final bool delete;
   static String get name => 'firestoreUtilData';
 }
-
-class FirestoreUtilDataSerializer
-    implements PrimitiveSerializer<FirestoreUtilData> {
-  final bool structured = false;
-  @override
-  final Iterable<Type> types = new BuiltList<Type>([FirestoreUtilData]);
-  @override
-  final String wireName = 'FirestoreUtilData';
-
-  @override
-  Object serialize(Serializers serializers, FirestoreUtilData firestoreUtilData,
-      {FullType specifiedType: FullType.unspecified}) {
-    return firestoreUtilData;
-  }
-
-  @override
-  FirestoreUtilData deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType: FullType.unspecified}) =>
-      serialized as FirestoreUtilData;
-}
-
-class ColorSerializer implements PrimitiveSerializer<Color> {
-  @override
-  final Iterable<Type> types = new BuiltList<Type>([Color]);
-  @override
-  final String wireName = 'Color';
-
-  @override
-  Object serialize(Serializers serializers, Color color,
-      {FullType specifiedType: FullType.unspecified}) {
-    return color.toCssString();
-  }
-
-  @override
-  Color deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType: FullType.unspecified}) =>
-      fromCssColor(serialized as String);
-}
-
-Map<String, dynamic> serializedData(DocumentSnapshot doc) => {
-      ...mapFromFirestore(doc.data() as Map<String, dynamic>),
-      kDocumentReferenceField: doc.reference
-    };
 
 Map<String, dynamic> mapFromFirestore(Map<String, dynamic> data) =>
     mergeNestedFields(data)
@@ -189,6 +77,14 @@ Map<String, dynamic> mapToFirestore(Map<String, dynamic> data) =>
       if (value is Iterable && value.isNotEmpty && value.first is LatLng) {
         value = value.map((v) => (v as LatLng).toGeoPoint()).toList();
       }
+      // Handle Color
+      if (value is Color) {
+        value = value.toCssString();
+      }
+      // Handle list of Color
+      if (value is Iterable && value.isNotEmpty && value.first is Color) {
+        value = value.map((v) => (v as Color).toCssString()).toList();
+      }
       // Handle nested data.
       if (value is Map) {
         value = mapFromFirestore(value as Map<String, dynamic>);
@@ -201,6 +97,9 @@ Map<String, dynamic> mapToFirestore(Map<String, dynamic> data) =>
       }
       return MapEntry(key, value);
     });
+
+List<GeoPoint>? convertToGeoPointList(List<LatLng>? list) =>
+    list?.map((e) => e.toGeoPoint()).toList();
 
 extension GeoPointExtension on LatLng {
   GeoPoint toGeoPoint() => GeoPoint(latitude, longitude);

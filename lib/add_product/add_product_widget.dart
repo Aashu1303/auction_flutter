@@ -1,10 +1,10 @@
-import '../auth/auth_util.dart';
-import '../backend/backend.dart';
-import '../backend/firebase_storage/storage.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/upload_media.dart';
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/upload_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,6 @@ class _AddProductWidgetState extends State<AddProductWidget> {
   late AddProductModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -41,58 +40,62 @@ class _AddProductWidgetState extends State<AddProductWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(90),
-        child: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryColor,
-          automaticallyImplyLeading: false,
-          leading: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-            child: InkWell(
-              onTap: () async {
-                context.pushNamed('Profile');
-              },
-              child: Icon(
-                Icons.chevron_left,
-                color: FlutterFlowTheme.of(context).primaryBtnText,
-                size: 24,
-              ),
-            ),
-          ),
-          title: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                child: Text(
-                  'Add Your Antique',
-                  style: FlutterFlowTheme.of(context).bodyText1.override(
-                        fontFamily: 'Poppins',
-                        color: FlutterFlowTheme.of(context).primaryBtnText,
-                        fontSize: 20,
-                      ),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(90.0),
+          child: AppBar(
+            backgroundColor: FlutterFlowTheme.of(context).primary,
+            automaticallyImplyLeading: false,
+            leading: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  context.pushNamed('Profile');
+                },
+                child: Icon(
+                  Icons.chevron_left,
+                  color: FlutterFlowTheme.of(context).primaryBtnText,
+                  size: 24.0,
                 ),
               ),
-            ],
+            ),
+            title: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                  child: Text(
+                    'Add Your Antique',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Poppins',
+                          color: FlutterFlowTheme.of(context).primaryBtnText,
+                          fontSize: 20.0,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+            actions: [],
+            centerTitle: true,
+            toolbarHeight: 90.0,
+            elevation: 4.0,
           ),
-          actions: [],
-          centerTitle: true,
-          toolbarHeight: 90,
-          elevation: 4,
         ),
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+        body: SafeArea(
+          top: true,
           child: Form(
             key: _model.formKey,
             autovalidateMode: AutovalidateMode.disabled,
@@ -101,19 +104,19 @@ class _AddProductWidgetState extends State<AddProductWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
                   child: Material(
                     color: Colors.transparent,
-                    elevation: 5,
+                    elevation: 5.0,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Container(
-                      width: 150,
-                      height: 150,
+                      width: 150.0,
+                      height: 150.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.0),
                         border: Border.all(
                           color:
                               FlutterFlowTheme.of(context).backgroundComponents,
@@ -128,11 +131,10 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                           if (!snapshot.hasData) {
                             return Center(
                               child: SizedBox(
-                                width: 50,
-                                height: 50,
+                                width: 50.0,
+                                height: 50.0,
                                 child: CircularProgressIndicator(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
+                                  color: FlutterFlowTheme.of(context).primary,
                                 ),
                               ),
                             );
@@ -148,6 +150,10 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                   ? imageListingsRecordList.first
                                   : null;
                           return InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
                             onTap: () async {
                               final selectedMedia =
                                   await selectMediaWithSourceBottomSheet(
@@ -157,8 +163,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                               if (selectedMedia != null &&
                                   selectedMedia.every((m) => validateFileFormat(
                                       m.storagePath, context))) {
-                                setState(() => _model.isMediaUploading = true);
+                                setState(() => _model.isDataUploading = true);
                                 var selectedUploadedFiles = <FFUploadedFile>[];
+
                                 var downloadUrls = <String>[];
                                 try {
                                   selectedUploadedFiles = selectedMedia
@@ -167,6 +174,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                             bytes: m.bytes,
                                             height: m.dimensions?.height,
                                             width: m.dimensions?.width,
+                                            blurHash: m.blurHash,
                                           ))
                                       .toList();
 
@@ -180,7 +188,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                       .map((u) => u!)
                                       .toList();
                                 } finally {
-                                  _model.isMediaUploading = false;
+                                  _model.isDataUploading = false;
                                 }
                                 if (selectedUploadedFiles.length ==
                                         selectedMedia.length &&
@@ -198,14 +206,14 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                               }
                             },
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                               child: Image.network(
                                 valueOrDefault<String>(
                                   imageListingsRecord!.photoUrl,
                                   'https://icons.veryicon.com/png/o/commerce-shopping/merchant-product-icon-library/add-55.png',
                                 ),
-                                width: 150,
-                                height: 150,
+                                width: 150.0,
+                                height: 150.0,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -220,98 +228,101 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
                         child: TextFormField(
                           controller: _model.userNameController,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Product Name',
-                            labelStyle:
-                                FlutterFlowTheme.of(context).title3.override(
-                                      fontFamily: 'Poppins',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      fontWeight: FontWeight.normal,
-                                    ),
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  fontWeight: FontWeight.normal,
+                                ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             errorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                20.0, 32.0, 20.0, 12.0),
                           ),
-                          style: FlutterFlowTheme.of(context).title3,
+                          style: FlutterFlowTheme.of(context).headlineSmall,
                           textAlign: TextAlign.start,
                           validator: _model.userNameControllerValidator
                               .asValidator(context),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 16.0, 16.0, 0.0),
                         child: TextFormField(
                           controller: _model.shortBioController,
                           obscureText: false,
                           decoration: InputDecoration(
                             hintText: 'Enter description here...',
-                            hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                            hintStyle: FlutterFlowTheme.of(context).bodySmall,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             errorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                20.0, 32.0, 20.0, 12.0),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyText1,
+                          style: FlutterFlowTheme.of(context).bodyMedium,
                           textAlign: TextAlign.start,
                           maxLines: 4,
                           keyboardType: TextInputType.multiline,
@@ -320,15 +331,16 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 10, 16, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 10.0, 16.0, 0.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 10.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
                                   final _datePicked1Date = await showDatePicker(
@@ -362,18 +374,22 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                 },
                                 text: 'Select Bid starting Timing',
                                 options: FFButtonOptions(
-                                  width: 130,
-                                  height: 40,
+                                  width: 130.0,
+                                  height: 40.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context)
                                       .primaryBtnText,
                                   textStyle:
-                                      FlutterFlowTheme.of(context).bodyText1,
-                                  elevation: 5,
+                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  elevation: 5.0,
                                   borderSide: BorderSide(
                                     color: Colors.transparent,
-                                    width: 1,
+                                    width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(8),
+                                  borderRadius: BorderRadius.circular(8.0),
                                 ),
                               ),
                             ),
@@ -410,110 +426,116 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                               },
                               text: 'Select Ending Timing',
                               options: FFButtonOptions(
-                                width: 130,
-                                height: 40,
+                                width: 130.0,
+                                height: 40.0,
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
                                 color:
                                     FlutterFlowTheme.of(context).primaryBtnText,
                                 textStyle:
-                                    FlutterFlowTheme.of(context).bodyText1,
-                                elevation: 5,
+                                    FlutterFlowTheme.of(context).bodyMedium,
+                                elevation: 5.0,
                                 borderSide: BorderSide(
                                   color: Colors.transparent,
-                                  width: 1,
+                                  width: 1.0,
                                 ),
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 10, 16, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 10.0, 16.0, 0.0),
                         child: TextFormField(
                           controller: _model.maxBidController,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelStyle: FlutterFlowTheme.of(context).bodyText1,
+                            labelStyle: FlutterFlowTheme.of(context).bodyMedium,
                             hintText: 'Maximum Bidding Price',
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             errorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                20.0, 32.0, 20.0, 12.0),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyText1,
+                          style: FlutterFlowTheme.of(context).bodyMedium,
                           textAlign: TextAlign.start,
                           validator: _model.maxBidControllerValidator
                               .asValidator(context),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 10, 16, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 10.0, 16.0, 0.0),
                         child: TextFormField(
                           controller: _model.minBidController,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelStyle: FlutterFlowTheme.of(context).bodyText1,
+                            labelStyle: FlutterFlowTheme.of(context).bodyMedium,
                             hintText: 'Minimum Bidding Price',
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             errorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                20.0, 32.0, 20.0, 12.0),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyText1,
+                          style: FlutterFlowTheme.of(context).bodyMedium,
                           textAlign: TextAlign.start,
                           validator: _model.minBidControllerValidator
                               .asValidator(context),
@@ -523,38 +545,44 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 50),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 50.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      final listingsCreateData = createListingsRecordData(
-                        name: _model.userNameController.text,
-                        aboutProduct: _model.shortBioController.text,
-                        minBid: double.tryParse(_model.minBidController.text),
-                        maxBid: double.tryParse(_model.maxBidController.text),
-                        image: _model.uploadedFileUrl,
-                        startDate: _model.datePicked1,
-                        endDate: _model.datePicked2,
-                        maxBidUID: currentUserReference,
-                      );
                       await ListingsRecord.collection
                           .doc()
-                          .set(listingsCreateData);
+                          .set(createListingsRecordData(
+                            name: _model.userNameController.text,
+                            aboutProduct: _model.shortBioController.text,
+                            minBid:
+                                double.tryParse(_model.minBidController.text),
+                            maxBid:
+                                double.tryParse(_model.maxBidController.text),
+                            image: _model.uploadedFileUrl,
+                            startDate: _model.datePicked1,
+                            endDate: _model.datePicked2,
+                            maxBidUID: currentUserReference,
+                          ));
                     },
                     text: 'Upload',
                     options: FFButtonOptions(
-                      width: 130,
-                      height: 40,
-                      color: FlutterFlowTheme.of(context).primaryColor,
+                      width: 130.0,
+                      height: 40.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primary,
                       textStyle:
-                          FlutterFlowTheme.of(context).subtitle2.override(
+                          FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Poppins',
                                 color: Colors.white,
                               ),
+                      elevation: 2.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
-                        width: 1,
+                        width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                 ),

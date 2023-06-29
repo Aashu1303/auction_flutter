@@ -1,8 +1,8 @@
-import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_animations.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -23,7 +23,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
   late HomePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -35,55 +34,56 @@ class _HomePageWidgetState extends State<HomePageWidget>
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'My Products',
-          style: FlutterFlowTheme.of(context).title2.override(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-              ),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+          automaticallyImplyLeading: false,
+          title: Text(
+            'My Products',
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  fontFamily: 'Poppins',
+                  color: Colors.white,
+                ),
+          ),
+          actions: [],
+          centerTitle: false,
+          elevation: 2.0,
         ),
-        actions: [],
-        centerTitle: false,
-        elevation: 2,
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+        body: SafeArea(
+          top: true,
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'Latest Products',
-                        style: FlutterFlowTheme.of(context).subtitle1,
+                        style: FlutterFlowTheme.of(context).titleMedium,
                       ),
                       FlutterFlowIconButton(
                         borderColor: Colors.transparent,
-                        borderRadius: 30,
-                        borderWidth: 1,
-                        buttonSize: 40,
+                        borderRadius: 30.0,
+                        borderWidth: 1.0,
+                        buttonSize: 40.0,
                         icon: Icon(
                           Icons.tune_rounded,
                           color: FlutterFlowTheme.of(context).secondaryText,
-                          size: 20,
+                          size: 20.0,
                         ),
                         onPressed: () {
                           print('IconButton pressed ...');
@@ -93,7 +93,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 44.0),
                   child: StreamBuilder<List<ListingsRecord>>(
                     stream: queryListingsRecord(),
                     builder: (context, snapshot) {
@@ -101,10 +101,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       if (!snapshot.hasData) {
                         return Center(
                           child: SizedBox(
-                            width: 50,
-                            height: 50,
+                            width: 50.0,
+                            height: 50.0,
                             child: CircularProgressIndicator(
-                              color: FlutterFlowTheme.of(context).primaryColor,
+                              color: FlutterFlowTheme.of(context).primary,
                             ),
                           ),
                         );
@@ -121,13 +121,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           final listViewListingsRecord =
                               listViewListingsRecordList[listViewIndex];
                           return Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(18, 0, 18, 14),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                18.0, 0.0, 18.0, 14.0),
                             child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
                               onTap: () async {
                                 context.goNamed(
                                   'DetailPage',
-                                  queryParams: {
+                                  queryParameters: {
                                     'listingRef': serializeParam(
                                       listViewListingsRecord.reference,
                                       ParamType.DocumentReference,
@@ -143,31 +147,32 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 );
                               },
                               child: Container(
-                                width: 100,
+                                width: 100.0,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   boxShadow: [
                                     BoxShadow(
-                                      blurRadius: 5,
+                                      blurRadius: 5.0,
                                       color: Color(0x1F000000),
-                                      offset: Offset(0, 2),
+                                      offset: Offset(0.0, 2.0),
                                     )
                                   ],
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(12.0),
                                 ),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          4, 4, 4, 4),
+                                          4.0, 4.0, 4.0, 4.0),
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(12),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
                                         child: Image.network(
-                                          listViewListingsRecord.image!,
-                                          width: 120,
-                                          height: 100,
+                                          listViewListingsRecord.image,
+                                          width: 120.0,
+                                          height: 100.0,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -181,7 +186,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    8, 12, 16, 0),
+                                                    8.0, 12.0, 16.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -189,10 +194,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  listViewListingsRecord.name!,
+                                                  listViewListingsRecord.name,
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .title3,
+                                                      .headlineSmall,
                                                 ),
                                               ],
                                             ),
@@ -200,7 +205,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 16, 0),
+                                                    8.0, 0.0, 16.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -214,7 +219,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           .endDate!),
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .bodyText2,
+                                                      .bodySmall,
                                                 ),
                                               ],
                                             ),
@@ -222,7 +227,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 16, 12),
+                                                    8.0, 0.0, 16.0, 12.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -231,7 +236,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 Text(
                                                   formatNumber(
                                                     listViewListingsRecord
-                                                        .currentBid!,
+                                                        .currentBid,
                                                     formatType:
                                                         FormatType.decimal,
                                                     decimalType:
@@ -240,13 +245,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   ),
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .subtitle1
+                                                      .titleMedium
                                                       .override(
                                                         fontFamily: 'Poppins',
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryColor,
+                                                                .primary,
                                                       ),
                                                 ),
                                               ],

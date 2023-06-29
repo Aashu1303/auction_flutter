@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+import 'dart:async';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -8,22 +8,24 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:video_player/video_player.dart';
 
-import '../auth/auth_util.dart';
+import '../auth/firebase_auth/auth_util.dart';
 import 'flutter_flow_util.dart';
 
 const allowedFormats = {'image/png', 'image/jpeg', 'video/mp4', 'image/gif'};
 
-class SelectedMedia {
-  const SelectedMedia({
+class SelectedFile {
+  const SelectedFile({
     this.storagePath = '',
     this.filePath,
     required this.bytes,
     this.dimensions,
+    this.blurHash,
   });
   final String storagePath;
   final String? filePath;
   final Uint8List bytes;
   final MediaDimensions? dimensions;
+  final String? blurHash;
 }
 
 class MediaDimensions {
@@ -41,7 +43,7 @@ enum MediaSource {
   camera,
 }
 
-Future<List<SelectedMedia>?> selectMediaWithSourceBottomSheet({
+Future<List<SelectedFile>?> selectMediaWithSourceBottomSheet({
   required BuildContext context,
   String? storageFolderPath,
   double? maxWidth,
@@ -53,6 +55,7 @@ Future<List<SelectedMedia>?> selectMediaWithSourceBottomSheet({
   Color textColor = const Color(0xFF111417),
   Color backgroundColor = const Color(0xFFF5F5F5),
   bool includeDimensions = false,
+  bool includeBlurHash = false,
 }) async {
   final createUploadMediaListTile =
       (String label, MediaSource mediaSource) => ListTile(
@@ -141,10 +144,11 @@ Future<List<SelectedMedia>?> selectMediaWithSourceBottomSheet({
         (mediaSource == MediaSource.camera && allowVideo && !allowPhoto),
     mediaSource: mediaSource,
     includeDimensions: includeDimensions,
+    includeBlurHash: includeBlurHash,
   );
 }
 
-Future<List<SelectedMedia>?> selectMedia({
+Future<List<SelectedFile>?> selectMedia({
   String? storageFolderPath,
   double? maxWidth,
   double? maxHeight,
@@ -153,6 +157,7 @@ Future<List<SelectedMedia>?> selectMedia({
   MediaSource mediaSource = MediaSource.camera,
   bool multiImage = false,
   bool includeDimensions = false,
+  bool includeBlurHash = false,
 }) async {
   final picker = ImagePicker();
 
@@ -176,7 +181,8 @@ Future<List<SelectedMedia>?> selectMedia({
               ? _getVideoDimensions(media.path)
               : _getImageDimensions(mediaBytes)
           : null;
-      return SelectedMedia(
+
+      return SelectedFile(
         storagePath: path,
         filePath: media.path,
         bytes: mediaBytes,
@@ -207,8 +213,9 @@ Future<List<SelectedMedia>?> selectMedia({
           ? _getVideoDimensions(pickedMedia.path)
           : _getImageDimensions(mediaBytes)
       : null;
+
   return [
-    SelectedMedia(
+    SelectedFile(
       storagePath: path,
       filePath: pickedMedia.path,
       bytes: mediaBytes,
@@ -229,30 +236,76 @@ bool validateFileFormat(String filePath, BuildContext context) {
   return false;
 }
 
-Future<SelectedMedia?> selectFile({
+Future<SelectedFile?> selectFile({
   String? storageFolderPath,
-  List<String> allowedExtensions = const ['pdf'],
+  List<String>? allowedExtensions,
+}) =>
+    selectFiles(
+      storageFolderPath: storageFolderPath,
+      allowedExtensions: allowedExtensions,
+      multiFile: false,
+    ).then((value) => value?.first);
+
+Future<List<SelectedFile>?> selectFiles({
+  String? storageFolderPath,
+  List<String>? allowedExtensions,
+  bool multiFile = false,
 }) async {
   final pickedFiles = await FilePicker.platform.pickFiles(
-    type: FileType.custom,
+    type: allowedExtensions != null ? FileType.custom : FileType.any,
     allowedExtensions: allowedExtensions,
     withData: true,
+    allowMultiple: multiFile,
   );
   if (pickedFiles == null || pickedFiles.files.isEmpty) {
     return null;
   }
-
+  if (multiFile) {
+    return Future.wait(pickedFiles.files.asMap().entries.map((e) async {
+      final index = e.key;
+      final file = e.value;
+      final storagePath =
+          _getStoragePath(storageFolderPath, file.name, false, index);
+      return SelectedFile(
+        storagePath: storagePath,
+        filePath: isWeb ? null : file.path,
+        bytes: file.bytes!,
+      );
+    }));
+  }
   final file = pickedFiles.files.first;
   if (file.bytes == null) {
     return null;
   }
   final storagePath = _getStoragePath(storageFolderPath, file.name, false);
-  return SelectedMedia(
-    storagePath: storagePath,
-    filePath: isWeb ? null : file.path,
-    bytes: file.bytes!,
-  );
+  return [
+    SelectedFile(
+      storagePath: storagePath,
+      filePath: isWeb ? null : file.path,
+      bytes: file.bytes!,
+    )
+  ];
 }
+
+List<SelectedFile> selectedFilesFromUploadedFiles(
+  List<FFUploadedFile> uploadedFiles, {
+  String? storageFolderPath,
+  bool isMultiData = false,
+}) =>
+    uploadedFiles.asMap().entries.map(
+      (entry) {
+        final index = entry.key;
+        final file = entry.value;
+        return SelectedFile(
+            storagePath: _getStoragePath(
+              storageFolderPath != null ? storageFolderPath : null,
+              file.name!,
+              false,
+              isMultiData ? index : null,
+            ),
+            bytes: file.bytes!);
+      },
+    ).toList();
 
 Future<MediaDimensions> _getImageDimensions(Uint8List mediaBytes) async {
   final image = await decodeImageFromList(mediaBytes);

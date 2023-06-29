@@ -1,9 +1,9 @@
-import '../auth/auth_util.dart';
-import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -56,12 +56,15 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 50,
-              height: 50,
-              child: CircularProgressIndicator(
-                color: FlutterFlowTheme.of(context).primaryColor,
+          return Scaffold(
+            backgroundColor: Colors.white,
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: CircularProgressIndicator(
+                  color: FlutterFlowTheme.of(context).primary,
+                ),
               ),
             ),
           );
@@ -71,13 +74,17 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
           key: scaffoldKey,
           backgroundColor: Colors.white,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(70),
+            preferredSize: Size.fromHeight(70.0),
             child: AppBar(
               backgroundColor: Colors.white,
               automaticallyImplyLeading: false,
               leading: Align(
-                alignment: AlignmentDirectional(0, 1),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
                   onTap: () async {
                     context.pushNamed(
                       'HomePage',
@@ -93,25 +100,25 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                   child: Icon(
                     Icons.chevron_left_rounded,
                     color: Color(0xFF0F1113),
-                    size: 32,
+                    size: 32.0,
                   ),
                 ),
               ),
               title: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                 child: Text(
-                  detailPageListingsRecord.name!,
-                  style: FlutterFlowTheme.of(context).title2.override(
+                  detailPageListingsRecord.name,
+                  style: FlutterFlowTheme.of(context).headlineMedium.override(
                         fontFamily: 'Outfit',
                         color: Color(0xFF0F1113),
-                        fontSize: 24,
+                        fontSize: 24.0,
                         fontWeight: FontWeight.w500,
                       ),
                 ),
               ),
               actions: [],
               centerTitle: false,
-              elevation: 3,
+              elevation: 3.0,
             ),
           ),
           body: SingleChildScrollView(
@@ -123,34 +130,35 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(30, 30, 30, 30),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            30.0, 30.0, 30.0, 30.0),
                         child: Material(
                           color: Colors.transparent,
-                          elevation: 5,
+                          elevation: 5.0,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: Container(
-                            width: 100,
-                            height: 230,
+                            width: 100.0,
+                            height: 230.0,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .primaryBackground,
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.0),
                               border: Border.all(
                                 color: FlutterFlowTheme.of(context)
                                     .backgroundComponents,
                               ),
                             ),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(0),
+                              borderRadius: BorderRadius.circular(0.0),
                               child: Image.network(
                                 valueOrDefault<String>(
                                   detailPageListingsRecord.image,
                                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbPYg7FzxKVjNrmcNq8nJjKCw4HazEBapcbQ&usqp=CAU',
                                 ),
-                                width: MediaQuery.of(context).size.width,
-                                height: 230,
+                                width: MediaQuery.sizeOf(context).width * 1.0,
+                                height: 230.0,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -161,17 +169,20 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 12, 20, 0),
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
                         child: Text(
-                          detailPageListingsRecord.name!,
-                          style: FlutterFlowTheme.of(context).title2.override(
+                          detailPageListingsRecord.name,
+                          style: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .override(
                                 fontFamily: 'Outfit',
                                 color: Color(0xFF0F1113),
-                                fontSize: 24,
+                                fontSize: 24.0,
                                 fontWeight: FontWeight.w500,
                               ),
                         ),
@@ -180,23 +191,25 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 4, 20, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 4.0, 20.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 10.0, 0.0, 0.0),
                           child: Text(
                             dateTimeFormat('d/M h:mm a',
                                 detailPageListingsRecord.endDate!),
-                            style:
-                                FlutterFlowTheme.of(context).subtitle1.override(
-                                      fontFamily: 'Outfit',
-                                      color: Color(0xFF4B39EF),
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                            style: FlutterFlowTheme.of(context)
+                                .titleMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  color: Color(0xFF4B39EF),
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
                           ),
                         ),
                       ),
@@ -204,20 +217,22 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 12, 20, 20),
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 20.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 20.0, 0.0, 0.0),
                           child: Text(
-                            detailPageListingsRecord.aboutProduct!,
+                            detailPageListingsRecord.aboutProduct,
                             style:
-                                FlutterFlowTheme.of(context).bodyText2.override(
+                                FlutterFlowTheme.of(context).bodySmall.override(
                                       fontFamily: 'Outfit',
                                       color: Color(0xFF57636C),
-                                      fontSize: 14,
+                                      fontSize: 14.0,
                                       fontWeight: FontWeight.normal,
                                     ),
                           ),
@@ -227,35 +242,37 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 30, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 30.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 50, 50, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 50.0, 50.0, 0.0),
                         child: Text(
                           'Current Bid:',
                           style:
-                              FlutterFlowTheme.of(context).bodyText1.override(
+                              FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Poppins',
-                                    fontSize: 18,
+                                    fontSize: 18.0,
                                   ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
                         child: Text(
                           formatNumber(
-                            detailPageListingsRecord.currentBid!,
+                            detailPageListingsRecord.currentBid,
                             formatType: FormatType.decimal,
                             decimalType: DecimalType.automatic,
                             currency: '₹',
                           ),
                           style:
-                              FlutterFlowTheme.of(context).bodyText1.override(
+                              FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Poppins',
-                                    fontSize: 18,
+                                    fontSize: 18.0,
                                   ),
                         ),
                       ),
@@ -267,41 +284,44 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 50, 0),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 50.0, 0.0),
                       child: Text(
                         'Minimum Bid: ',
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Poppins',
-                              fontSize: 18,
+                              fontSize: 18.0,
                             ),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 40, 0),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 40.0, 0.0),
                       child: Text(
                         formatNumber(
-                          detailPageListingsRecord.minBid!,
+                          detailPageListingsRecord.minBid,
                           formatType: FormatType.decimal,
                           decimalType: DecimalType.automatic,
                           currency: '₹',
                         ),
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Poppins',
-                              fontSize: 18,
+                              fontSize: 18.0,
                             ),
                       ),
                     ),
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Expanded(
                         child: Container(
-                          width: 100,
-                          height: 50,
+                          width: 100.0,
+                          height: 50.0,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
@@ -310,7 +330,7 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                             children: [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    40, 0, 20, 0),
+                                    40.0, 0.0, 20.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.inputBidController,
                                   autofocus: true,
@@ -319,55 +339,56 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                                     isDense: true,
                                     hintText: 'Enter Bidding Amount :',
                                     hintStyle:
-                                        FlutterFlowTheme.of(context).bodyText2,
+                                        FlutterFlowTheme.of(context).bodySmall,
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
-                                        width: 1,
+                                        width: 1.0,
                                       ),
-                                      borderRadius: BorderRadius.circular(5),
+                                      borderRadius: BorderRadius.circular(5.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
                                             .alternate,
-                                        width: 1,
+                                        width: 1.0,
                                       ),
-                                      borderRadius: BorderRadius.circular(5),
+                                      borderRadius: BorderRadius.circular(5.0),
                                     ),
                                     errorBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0x00000000),
-                                        width: 1,
+                                        width: 1.0,
                                       ),
-                                      borderRadius: BorderRadius.circular(5),
+                                      borderRadius: BorderRadius.circular(5.0),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0x00000000),
-                                        width: 1,
+                                        width: 1.0,
                                       ),
-                                      borderRadius: BorderRadius.circular(5),
+                                      borderRadius: BorderRadius.circular(5.0),
                                     ),
                                     filled: true,
                                   ),
-                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                  style:
+                                      FlutterFlowTheme.of(context).bodyMedium,
                                   keyboardType: TextInputType.number,
                                   validator: _model.inputBidControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(20, 9, 0, 0),
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    20.0, 9.0, 0.0, 0.0),
                                 child: Text(
                                   '₹',
                                   style: FlutterFlowTheme.of(context)
-                                      .bodyText1
+                                      .bodyMedium
                                       .override(
                                         fontFamily: 'Poppins',
-                                        fontSize: 20,
+                                        fontSize: 20.0,
                                       ),
                                 ),
                               ),
@@ -376,26 +397,26 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 24),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 20.0, 0.0, 24.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            final bidsCreateData = createBidsRecordData(
+                            await BidsRecord.createDoc(widget.listingRef!)
+                                .set(createBidsRecordData(
                               amount: double.tryParse(
                                   _model.inputBidController.text),
                               timestamp: getCurrentTimestamp,
                               uid: currentUserReference,
-                            );
-                            await BidsRecord.createDoc(widget.listingRef!)
-                                .set(bidsCreateData);
-                            if (detailPageListingsRecord.currentBid! >
+                            ));
+                            if (detailPageListingsRecord.currentBid >
                                 functions.convertStringToDouble(
                                     _model.inputBidController.text)) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
                                     'PLEASE BID MORE THAN THE MINIMUM BID!',
-                                    style:
-                                        FlutterFlowTheme.of(context).subtitle1,
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleMedium,
                                   ),
                                   duration: Duration(milliseconds: 4000),
                                   backgroundColor: Color(0x00000000),
@@ -404,7 +425,7 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                               context.pop();
                               return;
                             }
-                            if (detailPageListingsRecord.maxBid! >=
+                            if (detailPageListingsRecord.maxBid >=
                                 functions.convertStringToDouble(
                                     _model.inputBidController.text)) {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -421,17 +442,15 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                                 ),
                               );
 
-                              final listingsUpdateData1 =
-                                  createListingsRecordData(
+                              await widget.listingRef!
+                                  .update(createListingsRecordData(
                                 currentBid: double.tryParse(
                                     _model.inputBidController.text),
                                 minBid: functions.addValue(
                                     double.parse(
                                         _model.inputBidController.text),
                                     50.0),
-                              );
-                              await widget.listingRef!
-                                  .update(listingsUpdateData1);
+                              ));
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -447,22 +466,20 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                                 ),
                               );
 
-                              final listingsUpdateData2 =
-                                  createListingsRecordData(
+                              await widget.listingRef!
+                                  .update(createListingsRecordData(
                                 maxBid: double.tryParse(
                                     _model.inputBidController.text),
                                 maxBidUID: currentUserReference,
                                 currentBid: detailPageListingsRecord.maxBid,
                                 minBid: functions.addValue(
-                                    detailPageListingsRecord.maxBid!, 50.0),
-                              );
-                              await widget.listingRef!
-                                  .update(listingsUpdateData2);
+                                    detailPageListingsRecord.maxBid, 50.0),
+                              ));
                             }
 
                             context.pushNamed(
                               'DetailPage',
-                              queryParams: {
+                              queryParameters: {
                                 'listingRef': serializeParam(
                                   widget.listingRef,
                                   ParamType.DocumentReference,
@@ -479,20 +496,25 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                           },
                           text: 'Bid',
                           options: FFButtonOptions(
-                            width: 139,
-                            height: 40,
+                            width: 139.0,
+                            height: 40.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
                             color: Color(0xFF4B39EF),
-                            textStyle:
-                                FlutterFlowTheme.of(context).title3.override(
-                                      fontFamily: 'Outfit',
-                                      color: Colors.white,
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                            elevation: 3,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  color: Colors.white,
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                            elevation: 3.0,
                             borderSide: BorderSide(
                               color: Colors.transparent,
-                              width: 1,
+                              width: 1.0,
                             ),
                           ),
                         ),
@@ -501,7 +523,7 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 4, 20, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 4.0, 20.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -509,16 +531,16 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                           detailPageListingsRecord.maxBidUID)
                         Expanded(
                           child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 10.0, 0.0, 0.0),
                             child: Text(
                               'You are the highest bidder!',
                               style: FlutterFlowTheme.of(context)
-                                  .subtitle1
+                                  .titleMedium
                                   .override(
                                     fontFamily: 'Outfit',
                                     color: Color(0xFF4B39EF),
-                                    fontSize: 18,
+                                    fontSize: 18.0,
                                     fontWeight: FontWeight.w500,
                                   ),
                             ),
