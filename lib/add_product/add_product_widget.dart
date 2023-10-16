@@ -46,7 +46,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -134,7 +136,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                 width: 50.0,
                                 height: 50.0,
                                 child: CircularProgressIndicator(
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
                                 ),
                               ),
                             );
@@ -209,7 +213,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                               borderRadius: BorderRadius.circular(8.0),
                               child: Image.network(
                                 valueOrDefault<String>(
-                                  imageListingsRecord!.photoUrl,
+                                  imageListingsRecord?.photoUrl,
                                   'https://icons.veryicon.com/png/o/commerce-shopping/merchant-product-icon-library/add-55.png',
                                 ),
                                 width: 150.0,
@@ -361,7 +365,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
 
                                   if (_datePicked1Date != null &&
                                       _datePicked1Time != null) {
-                                    setState(() {
+                                    safeSetState(() {
                                       _model.datePicked1 = DateTime(
                                         _datePicked1Date.year,
                                         _datePicked1Date.month,
@@ -413,7 +417,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
 
                                 if (_datePicked2Date != null &&
                                     _datePicked2Time != null) {
-                                  setState(() {
+                                  safeSetState(() {
                                     _model.datePicked2 = DateTime(
                                       _datePicked2Date.year,
                                       _datePicked2Date.month,

@@ -296,7 +296,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(0.0, 0.05),
+              alignment: AlignmentDirectional(0.00, 0.05),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                 child: StreamBuilder<UsersRecord>(
@@ -309,7 +309,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           width: 50.0,
                           height: 50.0,
                           child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primary,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
                           ),
                         ),
                       );

@@ -63,7 +63,9 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
                 width: 50.0,
                 height: 50.0,
                 child: CircularProgressIndicator(
-                  color: FlutterFlowTheme.of(context).primary,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    FlutterFlowTheme.of(context).primary,
+                  ),
                 ),
               ),
             ),
@@ -79,7 +81,7 @@ class _DetailPageWidgetState extends State<DetailPageWidget> {
               backgroundColor: Colors.white,
               automaticallyImplyLeading: false,
               leading: Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.00, 1.00),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,

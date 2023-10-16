@@ -160,7 +160,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
         if (states.contains(MaterialState.pressed)) {
           return widget.options.splashColor;
         }
-        return null;
+        return widget.options.hoverColor == null ? null : Colors.transparent;
       }),
       padding: MaterialStateProperty.all(widget.options.padding ??
           const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0)),
@@ -175,7 +175,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
       ),
     );
 
-    if (widget.icon != null || widget.iconData != null) {
+    if ((widget.icon != null || widget.iconData != null) && !loading) {
       return Container(
         height: widget.options.height,
         width: widget.options.width,

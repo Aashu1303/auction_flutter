@@ -179,7 +179,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         ],
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.85, 0.7),
+                        alignment: AlignmentDirectional(0.85, 0.70),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 10.0),
